@@ -1,8 +1,5 @@
-import { useEffect, useState } from "react";
-
+import {useState } from "react";
 import logo from "./assets/tickettap_logo.png"
-import axios from "axios";
-import { TbMovie } from "react-icons/tb";
 import { CiLocationOn } from "react-icons/ci";
 import Search from "./Search";
 

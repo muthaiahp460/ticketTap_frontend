@@ -1,5 +1,3 @@
-import React from 'react'
-
 const ShimmerCard = () => {
   return (
     <div className="w-[170px] lg:w-[208px] rounded-2xl shadow-md m-8 overflow-hidden">

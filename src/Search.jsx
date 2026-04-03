@@ -1,7 +1,5 @@
-import React from 'react'
-import { useEffect,useState } from 'react'
 import { IoMdSearch } from "react-icons/io";
-import axios from 'axios'
+
 const Search = ({search,setSearch}) => {
 
   return (

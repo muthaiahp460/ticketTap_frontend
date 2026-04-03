@@ -1,5 +1,6 @@
 import { TbMovie } from "react-icons/tb";
 import { useNavigate } from "react-router";
+
 const SearchOverlay = ({movies}) => {
   const navigate=useNavigate()
   return (
