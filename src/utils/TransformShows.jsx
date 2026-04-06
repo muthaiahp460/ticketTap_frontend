@@ -1,4 +1,4 @@
-const TransformShows = (shows) => {
+    const TransformShows = (shows) => {
     const data = new Map();
     for (let show of shows) {
         const { month, date, theaterName } = show;

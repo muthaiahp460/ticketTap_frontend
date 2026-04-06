@@ -1,4 +1,7 @@
+import { useNavigate } from "react-router";
+
 const Showtime = ({ shows }) => {
+    const navigate=useNavigate()
     console.log(shows)
     return (
         <div className="px-6 px-70 py-10 ">
@@ -29,7 +32,7 @@ const Showtime = ({ shows }) => {
                                 <div className="flex flex-wrap gap-4">
                                     {
                                         shows.map((show, index) => (
-                                            <button
+                                            <button onClick={()=>{navigate(`/show/${show.id}/seatLayout`)}}
                                                 key={index}
                                                 className="
                                                     px-16 py-3 

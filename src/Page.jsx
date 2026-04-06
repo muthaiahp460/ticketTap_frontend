@@ -1,4 +1,3 @@
-import axios from "axios";
 import {useState } from "react";
 import Showtime from "./Showtime";
 import { useParams } from "react-router";
