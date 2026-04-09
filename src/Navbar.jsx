@@ -12,8 +12,8 @@ const Navbar = ({search,setSearch}) => {
     <div className="flex items-center justify-between h-16 bg-white min-w-screen overflow-hidden px-16 py-2 shadow-2xs">
 
         <div className="flex gap-6">
-          <div className="flex justify-center items-center">
-            <img src={logo} className="object-contain h-10 w-10"></img>
+          <div className="flex justify-center items-center hover:cursor-pointer">
+            <img src={logo} className="object-contain h-10 w-10 "></img>
             <h1 className="text-xl font-sans font-semibold text-blue-950">Ticket</h1>
             <h1 className="bg-linear-to-r from-yellow-300 to-orange-500
             bg-clip-text text-transparent

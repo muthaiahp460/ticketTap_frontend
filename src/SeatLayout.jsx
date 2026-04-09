@@ -54,7 +54,7 @@ const SeatLayout = () => {
     const booking=axios.post(`http://localhost:3000/booking`,{
       showId:id,
       seatIds:selectedSeatIds
-    })
+    },{withCredentials:true})
   }
 
   return (
@@ -83,7 +83,7 @@ const SeatLayout = () => {
       </div>
       {
         selectedSeats.length>0 &&
-        <button className='bg-red-500 py-2 px-3 rounded-md my-8 mx-160 text-white'
+        <button className='bg-red-500 py-2 px-3 rounded-md my-8 mx-160 text-white hover:cursor-pointer'
         onClick={()=>lockSeats()}>
           {`Proceed to pay ${price}`}
         </button>
