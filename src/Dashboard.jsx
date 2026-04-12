@@ -57,7 +57,6 @@ const Dashboard = () => {
   const [open,setOpen]=useState(false);
   const [screen,setScreen]=useState(false);
   const [selectedTheaterId, setSelectedTheaterId] = useState(null)
-
   return (
     <div className="flex">
       <Sidebar />
@@ -93,7 +92,7 @@ const Dashboard = () => {
             onClick={()=>{setOpen(true)}} >Add Theater</button>
           </div>
           <div>
-            <ListTheaters setScreen={setScreen} setSelectedTheaterId={setSelectedTheaterId}/>
+            <ListTheaters setScreen={setScreen} theaterId={selectedTheaterId} setSelectedTheaterId={setSelectedTheaterId}/>
           </div>
         </div>
       </div>

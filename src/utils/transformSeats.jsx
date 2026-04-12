@@ -1,16 +1,11 @@
-import React from 'react'
+const transformSeats = (data) => {
+    const map = new Map()
 
-const transformSeats = (seats) => {
-    const data=new Map()
-    for(let seat of seats){
-        const {id,rowNo,seatNo,seatLabel,type,price,status}=seat
-        if(!data.has(rowNo)){
-            data.set(rowNo,[seat])
-        }
-        else
-            data.get(rowNo).push(seat)
-    }
-    return data;
+    data.forEach(([rowNo, seats]) => {
+        map.set(rowNo, seats)
+    })
+
+    return map
 }
 
 export default transformSeats

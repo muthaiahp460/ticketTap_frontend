@@ -8,6 +8,7 @@ import Register from "./components/Register";
 import Login from "./components/Login";
 import Dashboard from "./Dashboard";
 import ViewScreens from "./components/ViewScreens";
+import SeatLayouts from "./components/SeatLayouts";
 function App() { 
   return (
     <BrowserRouter>
@@ -20,6 +21,7 @@ function App() {
         <Route path="/login" element={<Login/>}></Route>
         <Route path="/admin/dashboard" element={<Dashboard/>}></Route>
         <Route path="/admin/dashboard/screens/:theaterId" element={<ViewScreens/>}></Route>
+        <Route path="/admin/seat/:screenId" element={<SeatLayouts/>}></Route>
       </Routes>
     </BrowserRouter>
   )

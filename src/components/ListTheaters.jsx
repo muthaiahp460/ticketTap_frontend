@@ -1,8 +1,10 @@
 import axios from 'axios'
 import { Theater, X } from 'lucide-react'
 import React, { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router'
 
-const ListTheaters = ({setScreen,setSelectedTheaterId}) => {
+const ListTheaters = ({setScreen,setSelectedTheaterId,theaterId}) => {
+  const navigate=useNavigate()
   const [theaters,setTheaters]=useState([])  
   useEffect(()=>{
     const getTheaters=async()=>{
@@ -35,17 +37,18 @@ const ListTheaters = ({setScreen,setSelectedTheaterId}) => {
                 <div className="flex items-center gap-3">
 
                 {/* View */}
-                <button className="px-3 py-1 text-sm bg-blue-100 text-blue-600 rounded-md hover:bg-blue-200 transition">
+                <button className="px-3 py-1 text-sm bg-blue-100 text-blue-600 rounded-md hover:bg-blue-200 transition hover:cursor-pointer"
+                onClick={()=>navigate(`/admin/dashboard/screens/${theater.id}`)}>
                     View
                 </button>
 
                 {/* Add Screen */}
-                <button className="px-3 py-1 text-sm bg-green-100 text-green-600 rounded-md hover:bg-green-200 transition" onClick={()=>{setSelectedTheaterId(theater.id);setScreen(true)}}>
+                <button className="px-3 py-1 text-sm bg-green-100 text-green-600 rounded-md hover:bg-green-200 transition hover:cursor-pointer" onClick={()=>{setSelectedTheaterId(theater.id);setScreen(true)}}>
                     + Screen
                 </button>
 
                 {/* Delete */}
-                <button className="p-2 text-red-500 hover:bg-red-100 rounded-md transition">
+                <button className="p-2 text-red-500 hover:bg-red-100 rounded-md transition hover:cursor-pointer">
                     <X size={18} />
                 </button>
 

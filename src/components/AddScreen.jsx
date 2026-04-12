@@ -1,6 +1,7 @@
 import React, { useState } from "react"
 import axios from "axios"
 import { toast, ToastContainer } from "react-toastify"
+import { X } from "lucide-react"
 
 const AddScreen = ({ theaterId, setScreen}) => {
   const [screenNo, setScreenNo] = useState("")
@@ -35,10 +36,13 @@ const AddScreen = ({ theaterId, setScreen}) => {
     <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
       <div className="bg-white p-6 rounded-xl w-[400px] relative">
         <ToastContainer position="top-right"></ToastContainer>
-        <h2 className="text-xl font-bold mb-4 text-center">
-          Add Screen
-        </h2>
-
+        <div className="flex justify-between">
+          <div></div>
+          <h2 className="text-xl font-bold mb-4 text-center">
+            Add Screen
+          </h2>
+          <X className="hover:cursor-pointer" onClick={()=>{setScreen(false)}}/>
+        </div>
         <div className="flex flex-col gap-4">
 
           <input
