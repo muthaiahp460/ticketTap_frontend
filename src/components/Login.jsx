@@ -41,7 +41,16 @@ const Login = () => {
         withCredentials:true,
       })
       toast.success("Login Success")
-      navigate("/")
+      try{
+        const result=await axios.get("http://localhost:3000/auth/verify",{withCredentials:true})
+        if(result.data.role=="user")
+          navigate("/")
+        if(result.data.role=="admin")
+          navigate("/admin/dashboard")
+      }
+      catch{
+
+      }
     }
     catch(err){
       toast.error("Login failed")
