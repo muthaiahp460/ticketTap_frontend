@@ -1,10 +1,11 @@
 export const getWeekDay = (day) => {
-  if(day==0) return "Mon"
-  else if(day==1) return "Tue"
-  else if(day==2) return "Wed"
-  else if(day==3) return "Thu"
-  else if(day==4) return "Fri"
-  else if(day==5) return "Sat"
-  else return "sun"
-}
+  const adjusted = (day + 1) % 7;
 
+  if (adjusted === 0) return "Sun";
+  if (adjusted === 1) return "Mon";
+  if (adjusted === 2) return "Tue";
+  if (adjusted === 3) return "Wed";
+  if (adjusted === 4) return "Thu";
+  if (adjusted === 5) return "Fri";
+  return "Sat";
+};

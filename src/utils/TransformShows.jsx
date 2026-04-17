@@ -1,23 +1,26 @@
-    const TransformShows = (shows) => {
-    const data = new Map();
-    for (let show of shows) {
-        const { month, date, theaterName } = show;
-        if (!data.has(month)) 
-            data.set(month, new Map());
+const transformShows = (data) => {
+  const monthMap = new Map();
 
-        const monthMap = data.get(month)
+  data.forEach((show) => {
+    const { month, date, day } = show;
 
-        if (!monthMap.has(date)) 
-            monthMap.set(date, new Map())
-        
-        const dateMap = monthMap.get(date)
+    if (!monthMap.has(month)) {
+      monthMap.set(month, new Map());
+    }
 
-        if (!dateMap.has(theaterName)) 
-        dateMap.set(theaterName, []);
+    const dateMap = monthMap.get(month);
 
-        dateMap.get(theaterName).push(show)
-        }
-        return data;
-}
+    if (!dateMap.has(date)) {
+      dateMap.set(date, {
+        day,
+        shows: []
+      });
+    }
 
-export default TransformShows
+    dateMap.get(date).shows.push(show);
+  });
+
+  return monthMap;
+};
+
+export default transformShows;
