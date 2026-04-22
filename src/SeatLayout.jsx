@@ -1,10 +1,11 @@
 import axios from 'axios'
 import { useEffect, useState } from 'react'
-import { useParams } from 'react-router'
+import { useNavigate, useParams } from 'react-router'
 import transformSeats from './utils/transformSeats'
 import { toast, ToastContainer } from 'react-toastify'
 
 const SeatLayout = () => {
+  const navigate = useNavigate()
   const params = useParams()
   const id = params.id
 
@@ -74,15 +75,21 @@ const SeatLayout = () => {
   // lock seats
   const lockSeats = async () => {
     try {
-      await axios.post(
+      const res = await axios.post(
         `http://localhost:3000/booking`,
         { showId: id, seatIds: selectedSeatIds },
         { withCredentials: true }
       )
+
+      const { bookingId, amount, expiresAt } = res.data
+
       toast.success("Seats Locked")
-      await fetchSeats()
-      setSelectedseats([])
-      setselectedSeatIds([])
+
+      // 🚀 Navigate to payment page
+      navigate(`/payment/${bookingId}`, {
+        state: { amount, expiresAt }
+      })
+
     } catch {
       toast.error("Unable to lock seats")
     }

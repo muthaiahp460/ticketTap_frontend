@@ -11,6 +11,8 @@ import ViewScreens from "./components/ViewScreens";
 import SeatLayouts from "./components/SeatLayouts";
 import ProtectedRoute from "./ProtectedRoute";
 import { useState } from "react";
+import PaymentPage from "./components/PaymentPage";
+import SuccessPage from "./SuccessPage";
 function App() { 
   const [user,setUser]=useState({})
   return (
@@ -21,8 +23,11 @@ function App() {
         <Route path="/register" element={<Register/>}></Route>
         <Route path="/login" element={<Login/>}></Route>
         <Route path="/shimmer" element={<ShimmerCard/>}></Route>
+        
         <Route element={<ProtectedRoute user={user} setUser={setUser} role={"user"}/>}>
           <Route path="/show/:id/seatLayout" element={<SeatLayout/>}></Route>
+          <Route path="/payment/:bookingId" element={<PaymentPage/>}></Route>
+          <Route path="/success/:bookingId" element={<SuccessPage/>}></Route>
         </Route>
         <Route element={<ProtectedRoute user={user} setUser={setUser} role={"admin"}/>}>
           <Route path="/admin/dashboard" element={<Dashboard/>}></Route>
