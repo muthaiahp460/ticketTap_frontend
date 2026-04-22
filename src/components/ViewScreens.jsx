@@ -13,12 +13,12 @@ const ViewScreens = () => {
 
   const movies = useMovies()
 
-  // 🔥 Schedule states
+  //  Schedule states
   const [openSchedule, setOpenSchedule] = useState(false)
   const [selectedScreen, setSelectedScreen] = useState(null)
   const [movieId, setMovieId] = useState(null)
 
-  // 🔥 Pricing modal states
+  //  Pricing modal states
   const [openPricing, setOpenPricing] = useState(false)
   const [selectedShowId, setSelectedShowId] = useState(null)
 
@@ -61,7 +61,7 @@ const ViewScreens = () => {
     setForm((prev) => ({ ...prev, screenId: selectedScreen }))
   }, [selectedScreen])
 
-  // 🔥 Add show API
+  //  Add show API
   const addShow = async () => {
     try {
       await axios.post(
@@ -94,7 +94,7 @@ const ViewScreens = () => {
     const map = new Map()
 
     for (let show of shows) {
-      const screenId = show.screenNo
+      const screenId = show.id
 
       if (!map.has(screenId)) {
         map.set(screenId, {
@@ -159,64 +159,66 @@ const ViewScreens = () => {
       ) : screens.length === 0 ? (
         <p>No screens available</p>
       ) : (
-        <div className="grid grid-cols-3 gap-4">
-          {screens.map((screen) => (
-            <div key={screen.screenId} className="bg-white p-4 rounded-xl shadow">
-              
-              <h3 className="font-semibold mb-2">
-                Screen {screen.screenNo}
-              </h3>
-
-              <div className="flex gap-2 mb-3">
-                <button
-                  onClick={() =>
-                    navigate(`/admin/seat/${screen.screenId}`)
-                  }
-                  className="bg-yellow-400 text-white px-2 py-1 rounded"
-                >
-                  Layout
-                </button>
-
-                <button
-                  onClick={() => {
-                    setSelectedScreen(screen.screenId)
-                    setOpenSchedule(true)
-                  }}
-                  className="bg-green-600 text-white px-2 py-1 rounded"
-                >
-                  Schedule
-                </button>
-              </div>
-
-              {screen.shows.map((show) => (
-                <div key={show.id} className="bg-gray-100 p-2 mb-2 rounded">
-                  <p>🎬 {show.name}</p>
-                  <p>⏰ {show.startTime} - {show.endTime}</p>
-                  <p>
-                    📅{" "}
-                    {show.showDate
-                      ? new Date(show.showDate).toLocaleDateString()
-                      : "-"}
-                  </p>
-
-                  {/* 🔥 Add Pricing Button */}
+        <div>{
+          console.log(screens)
+        }
+          <div className="grid grid-cols-3 gap-4">
+            {screens.map((screen,index) => (
+              <div key={index} className="bg-white p-4 rounded-xl shadow">
+                {console.log(screen)}
+          
+                <h3 className="font-semibold mb-2">
+                  Screen {screen.screenNo}
+                </h3>
+                <div className="flex gap-2 mb-3">
+                  <button
+                    onClick={() =>{
+                      navigate(`/admin/seat/${screen.screenId}`)
+                    }
+                    }
+                    className="bg-yellow-400 text-white px-2 py-1 rounded hover:cursor-pointer"
+                  >
+                    Layout
+                  </button>
                   <button
                     onClick={() => {
-                      setSelectedShowId(show.id)
-                      setOpenPricing(true)
+                      setSelectedScreen(screen.screenId)
+                      setOpenSchedule(true)
                     }}
-                    className="border-2 border-blue-500 text-blue-600 px-4 py-1.5 rounded hover:bg-blue-500 hover:text-white transition"
+                    className="bg-green-600 text-white px-2 py-1 rounded hover:cursor-pointer"
                   >
-                    Add Pricing
+                    Schedule
                   </button>
                 </div>
-              ))}
-            </div>
-          ))}
+                {screen.shows.map((show) => (
+                  <div key={show.showId} className="bg-gray-100 p-2 mb-2 rounded">
+                    <p>🎬 {show.name}</p>
+                    <p>⏰ {show.startTime?.slice(0,5)||""} - {show.endTime?.slice(0,5)}</p>
+                    <p>
+                      📅{" "}
+                      {show.showDate
+                        ? new Date(show.showDate).toLocaleDateString()
+                        : "--:--"}
+                    </p>
+                    {/* Add Pricing Button */}
+                    <button
+                      onClick={() => {
+                        setSelectedShowId(show.id)
+                        setOpenPricing(true)
+                      }}
+                      className="border-2 border-blue-500 text-blue-600 px-4 py-1.5 rounded hover:bg-blue-500 hover:text-white transition hover:cursor-pointer"
+                    >
+                      Add Pricing
+                    </button>
+                  </div>
+                ))}
+              </div>
+            ))}
+          </div>
         </div>
       )}
 
-      {/* 🔥 Schedule Modal */}
+      {/*  Schedule Modal */}
       {openSchedule && (
         <div className="fixed inset-0 bg-black/40 flex justify-center items-center">
           <div className="bg-white p-6 rounded-xl w-[350px]">
@@ -297,7 +299,7 @@ const ViewScreens = () => {
         </div>
       )}
 
-      {/* 🔥 Pricing Modal */}
+      {/*  Pricing Modal */}
       {openPricing && (
         <div className="fixed inset-0 bg-black/40 flex justify-center items-center">
           

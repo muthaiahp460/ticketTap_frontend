@@ -1,10 +1,22 @@
+import { useEffect, useState } from "react";
 import { getWeekDay } from "../utils/date";
 
 const ShowListing = ({ shows, selectedDate, setSelectedDate }) => {
+
+  useEffect(()=>{
+    const mapData = shows.get(0);
+    const firstmonth=shows.entries().next().value
+    const firstdate = firstmonth?.[1]?.values().next().value;
+    console.log(firstdate)
+    if(firstdate)
+      setSelectedDate(firstdate)
+  },[shows])
+
   if (!shows || shows.size === 0) {
     return <p className="text-center mt-6">No shows available</p>;
   }
-
+  
+  //setSelectedDate(firstdate)
   return (
     <div className="flex gap-3 px-70 pb-4">
       {Array.from(shows).map(([month, dateMap]) => (
@@ -20,12 +32,12 @@ const ShowListing = ({ shows, selectedDate, setSelectedDate }) => {
           {/* Dates */}
           <div className="flex gap-1">
             {Array.from(dateMap).map(([date, value]) => {
-              const isSelected = date === selectedDate;
-
+              const isSelected = value === selectedDate;
+              //console.log(date)
               return (
                 <div
                   key={date}
-                  onClick={() => setSelectedDate(date)}
+                  onClick={() => {setSelectedDate(value)}} // Update selected date on click
                   className={
                     isSelected
                       ? "flex flex-col items-center bg-[#202020] text-white justify-center h-16 w-13 m-1 rounded-xl"

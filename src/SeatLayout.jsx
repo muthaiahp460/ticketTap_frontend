@@ -16,7 +16,7 @@ const SeatLayout = () => {
   // Get current time once per render for consistent comparison across all seats
   const now = Date.now()
 
-  // 🔥 fetch seats
+  // fetch seats
   const fetchSeats = async () => {
     try {
       const result = await axios.get(`http://localhost:3000/show/${id}/seats`)
@@ -29,12 +29,12 @@ const SeatLayout = () => {
   useEffect(() => {
     fetchSeats()
     
-    // 🔥 Setup interval inside the same effect or keep separate
+    //Setup interval inside the same effect or keep separate
     const interval = setInterval(fetchSeats, 3000)
     return () => clearInterval(interval)
   }, [id])
 
-  // 🔥 handle select
+  // handle select
   const handleSelect = (s, isAvailable) => {
     if (!s || !s.rowNo || !s.seatNO || !isAvailable) return
 
@@ -51,7 +51,7 @@ const SeatLayout = () => {
     }
   }
 
-  // 🔥 price calculation
+  // price calculation
   useEffect(() => {
     const calculatePrice = async () => {
       if (selectedSeatIds.length === 0) {
@@ -71,7 +71,7 @@ const SeatLayout = () => {
     calculatePrice()
   }, [selectedSeatIds, id])
 
-  // 🔥 lock seats
+  // lock seats
   const lockSeats = async () => {
     try {
       await axios.post(

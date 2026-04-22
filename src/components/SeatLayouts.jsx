@@ -5,6 +5,7 @@ import { useParams } from "react-router"
 const SeatLayouts = ({ rows = 14, cols = 22}) => {
   const params=useParams()
   const screenId=params.screenId
+  
   const [layout, setLayout] = useState(() => {
     return Array.from({ length: rows }, (_, i) => ({
       rowLabel: String.fromCharCode(65 + i),
@@ -68,7 +69,7 @@ const SeatLayouts = ({ rows = 14, cols = 22}) => {
     setLayout(newLayout)
   }
 
-  // 🔥 APPLY MODE TO CELL
+  //  APPLY MODE TO CELL
   const applyModeToCell = (rowIndex, colIndex) => {
     const newLayout = [...layout]
     const cell = newLayout[rowIndex].cells[colIndex]
@@ -97,14 +98,14 @@ const SeatLayouts = ({ rows = 14, cols = 22}) => {
     setLayout(newLayout)
   }
 
-  // 🔥 ADD THIS FUNCTION ONLY
+  //  ADD THIS FUNCTION ONLY
   const getSeatNumber = (row, colIndex) => {
     return row.cells
       .slice(0, colIndex + 1)
       .filter((c) => c.type === "seat").length
   }
 
-  // 🔥 SAVE → CONVERT + POST
+  //  SAVE → CONVERT + POST
   const processData = async () => {
   try {
     let rowCharCode = 65
@@ -150,7 +151,7 @@ const SeatLayouts = ({ rows = 14, cols = 22}) => {
     alert("Failed to save layout")
   }
 }
-
+console.log("muthu")
   return (
     <div className="flex flex-col gap-6 py-4 px-40">
 
