@@ -31,8 +31,8 @@ const SeatLayout = () => {
     fetchSeats()
     
     //Setup interval inside the same effect or keep separate
-    const interval = setInterval(fetchSeats, 3000)
-    return () => clearInterval(interval)
+    //const interval = setInterval(fetchSeats, 3000)
+    //return () => clearInterval(interval)
   }, [id])
 
   // handle select
@@ -96,75 +96,146 @@ const SeatLayout = () => {
   }
 
   return (
-    <div>
-      <ToastContainer position='top-right' />
+  <div className="w-full flex justify-center min-h-screen bg-gray-50">
+    <ToastContainer position="top-right" />
 
+    <div className="w-full max-w-4xl px-3 sm:px-6 flex flex-col pb-24">
+
+      {/* Empty State */}
       {seats.size <= 0 && (
-        <div className='text-center text-2xl mt-10'>Seat Layout not Found</div>
+        <div className="text-center text-lg sm:text-2xl mt-10">
+          Seat Layout not Found
+        </div>
       )}
 
-      <div className='flex flex-col gap-6 items-center m-4'>
-        {Array.from(seats).map(([rowNo, seatList]) => (
-          <div
-            key={rowNo}
-            className='grid gap-3 items-center'
-            style={{
-              gridTemplateColumns: `40px repeat(${seatList.length}, 32px)`
-            }}
-          >
-            <p className='w-6 font-semibold'>{rowNo}</p>
+      {/* Seat Area */}
+      <div className="flex-1 flex flex-col justify-center mt-6">
 
-            {seatList.map((s, index) => {
-              if (!s || !s.rowNo) {
-                return <div key={`${rowNo}-gap-${index}`} className='w-8 h-8' />
-              }
+        <div className="flex">
 
-              
-
-              const expiryTime = s.expiresAt
-  ? new Date(s.expiresAt).getTime()
-  : null;
-
-              if(rowNo=="K")
-              console.log(`Seat ${s.seatNO} - Status: ${s.status}, Expiry: ${expiryTime}, Now: ${now} ,expiresAr:${s.expiresAt}`)
-              const isExpired =
-                s.status === "pending" &&
-                expiryTime !== null &&
-                expiryTime < now
-
-              const isAvailable = s.status === "available" || isExpired
-              // ----------------------
-
-              return (
-                <div
-                  key={s.id ?? `${rowNo}-${index}`}
-                  className={
-                    selectedSeats.includes(s.id)
-                      ? 'w-8 h-8 flex items-center justify-center text-sm rounded-md bg-green-500 text-white cursor-pointer'
-                      : isAvailable
-                        ? "w-8 h-8 flex items-center justify-center text-sm rounded-md border-2 border-green-300 cursor-pointer hover:bg-green-50"
-                        : "w-8 h-8 flex items-center justify-center text-sm rounded-md bg-gray-600 text-white pointer-events-none"
-                  }
-                  onClick={() => handleSelect(s, isAvailable)}
-                >
-                  {s.seatNO}
-                </div>
-              )
-            })}
+          {/* LEFT: ROW LABELS (FIXED) */}
+          <div className="flex flex-col gap-2 sm:gap-3 pr-2">
+            {Array.from(seats).reverse().map(([rowNo]) => (
+              <div
+                key={rowNo}
+                className="h-5 sm:h-7 md:h-8 flex items-center justify-center text-[10px] sm:text-xs text-gray-500 font-medium"
+              >
+                {rowNo}
+              </div>
+            ))}
           </div>
-        ))}
+
+          {/* RIGHT: SCROLLABLE SEATS */}
+          <div className="overflow-x-auto w-full">
+            <div className="flex flex-col gap-2 sm:gap-3 min-w-max">
+
+              {Array.from(seats).reverse().map(([rowNo, seatList]) => (
+                <div
+                  key={rowNo}
+                  className="grid gap-1 sm:gap-2"
+                  style={{
+                    gridTemplateColumns: `repeat(${seatList.length}, minmax(26px, 1fr))`
+                  }}
+                >
+                  {seatList.map((s, index) => {
+                    if (!s || !s.rowNo) {
+                      return (
+                        <div
+                          key={`${rowNo}-gap-${index}`}
+                          className="w-5 h-5 sm:w-7 sm:h-7"
+                        />
+                      );
+                    }
+
+                    const expiryTime = s.expiresAt
+                      ? new Date(s.expiresAt).getTime()
+                      : null;
+
+                    const isExpired =
+                      s.status === "pending" &&
+                      expiryTime !== null &&
+                      expiryTime < now;
+
+                    const isAvailable =
+                      s.status === "available" || isExpired;
+
+                    const isSelected = selectedSeats.includes(s.id);
+
+                    let seatClass =
+                      "flex items-center justify-center rounded-md text-[9px] sm:text-xs w-5 h-5 sm:w-7 sm:h-7 md:w-8 md:h-8 transition-all duration-150 ";
+
+                    if (isSelected) {
+                      seatClass += "bg-green-500 text-white";
+                    } else if (isAvailable) {
+                      seatClass +=
+                        "border border-green-400 text-green-700 hover:bg-green-100 cursor-pointer";
+                    } else {
+                      seatClass +=
+                        "bg-gray-500 text-white cursor-not-allowed";
+                    }
+
+                    return (
+                      <div
+                        key={s.id ?? `${rowNo}-${index}`}
+                        onClick={() => handleSelect(s, isAvailable)}
+                        className={seatClass}
+                      >
+                        {s.seatNO}
+                      </div>
+                    );
+                  })}
+                </div>
+              ))}
+
+            </div>
+          </div>
+
+        </div>
+
+        {/* SCREEN */}
+        <div className="flex flex-col items-center mt-8">
+          <div className="w-2/3 sm:w-1/2 h-5 sm:h-6 bg-gradient-to-t from-gray-400 to-gray-200 rounded-t-full shadow-md"></div>
+          <div className="w-1/2 h-2 bg-gray-300 blur-sm opacity-60 mt-1 rounded-full"></div>
+          <p className="text-[10px] sm:text-xs text-gray-500 mt-2 tracking-widest">
+            SCREEN THIS WAY
+          </p>
+        </div>
+
       </div>
 
-      {selectedSeats.length > 0 && (
+      {/* Legend */}
+      <div className="flex justify-center gap-4 sm:gap-6 mt-3 text-[10px] sm:text-sm flex-wrap">
+        <div className="flex items-center gap-1">
+          <div className="w-3 h-3 bg-green-500 rounded-sm"></div>
+          <span>Selected</span>
+        </div>
+
+        <div className="flex items-center gap-1">
+          <div className="w-3 h-3 border border-green-400 rounded-sm"></div>
+          <span>Available</span>
+        </div>
+
+        <div className="flex items-center gap-1">
+          <div className="w-3 h-3 bg-gray-500 rounded-sm"></div>
+          <span>Booked</span>
+        </div>
+      </div>
+
+    </div>
+
+    {/* Sticky CTA */}
+    {selectedSeats.length > 0 && (
+      <div className="fixed bottom-0 left-0 w-full bg-white border-t p-3 flex justify-center shadow-md">
         <button
-          className='bg-red-500 py-2 px-4 rounded-md my-8 mx-auto block text-white hover:cursor-pointer hover:bg-red-600 transition-colors'
+          className="bg-red-500 px-6 py-3 rounded-lg text-white font-medium w-full max-w-md hover:bg-red-600 active:scale-95 transition-all"
           onClick={lockSeats}
         >
           {`Proceed to pay ₹${price}`}
         </button>
-      )}
-    </div>
-  )
+      </div>
+    )}
+  </div>
+);
 }
 
 export default SeatLayout

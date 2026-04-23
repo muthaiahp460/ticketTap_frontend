@@ -11,27 +11,56 @@ const Page=()=>{
     const [movie,shows]=useMovieDetails(id)
     
     return (
-        <div>
-            <MovieBanner movie={movie}/>
-            <ShowListing shows={shows} selectedDate={selectedDate} setSelectedDate={setSelectedDate}/>
+        <div className="w-full flex justify-center">
 
-            <div className="bg-gray-200 h-6 mx-64 my-2 px-3 py-4 flex items-center gap-8">
-                <div className="flex items-center">
-                    <div className="h-2 w-2 rounded-2xl bg-green-500"></div>
-                    <p className="text-gray-600 px-0.5">Available</p>
-                </div>
-                <div className="flex items-center">
-                    <div className="h-2 w-2 rounded-2xl bg-orange-400"></div>
-                    <p className="text-gray-600 px-0.5">Filling fast</p>
-                </div>
-                <div className="flex items-center">
-                    <div className="h-2 w-2 rounded-2xl bg-red-500"></div>
-                    <p className="text-gray-600 px-0.5">Filled</p>
-                </div>
+      {/* Centered Container */}
+      <div className="w-full max-w-5xl px-3 sm:px-6 lg:px-8">
+
+        {/* Movie Banner */}
+        <MovieBanner movie={movie} />
+
+        {/* Date / Show Listing */}
+        <ShowListing
+          shows={shows}
+          selectedDate={selectedDate}
+          setSelectedDate={setSelectedDate}
+        />
+
+        {/* Status Legend */}
+        <div className="mt-4">
+          <div className="
+            bg-gray-200
+            rounded-lg
+            py-3 px-4
+            flex flex-wrap
+            items-center
+            gap-4 sm:gap-6 lg:gap-10
+            text-sm sm:text-base
+          ">
+            <div className="flex items-center gap-2">
+              <div className="h-2 w-2 rounded-full bg-green-500"></div>
+              <p className="text-gray-600">Available</p>
             </div>
 
-            <div>{selectedDate && <Showtime shows={selectedDate}/>}</div>
+            <div className="flex items-center gap-2">
+              <div className="h-2 w-2 rounded-full bg-orange-400"></div>
+              <p className="text-gray-600">Filling fast</p>
+            </div>
+
+            <div className="flex items-center gap-2">
+              <div className="h-2 w-2 rounded-full bg-red-500"></div>
+              <p className="text-gray-600">Filled</p>
+            </div>
+          </div>
         </div>
+
+        {/* Showtime */}
+        <div className="mt-4">
+          {selectedDate && <Showtime shows={selectedDate} />}
+        </div>
+
+      </div>
+    </div>
     )
 }
 

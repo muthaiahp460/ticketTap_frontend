@@ -18,46 +18,65 @@ const ShowListing = ({ shows, selectedDate, setSelectedDate }) => {
   
   //setSelectedDate(firstdate)
   return (
-    <div className="flex gap-3 px-70 pb-4">
-      {Array.from(shows).map(([month, dateMap]) => (
-        <div key={month} className="flex items-center gap-3">
+    <div className="w-full px-3 sm:px-6 lg:px-12 pb-4 overflow-x-auto">
+  <div className="flex gap-4 min-w-max">
 
-          {/* Month */}
-          <div className="h-16 w-6 bg-gray-100 flex items-center justify-center rounded-xl">
-            <div className="-rotate-90 font-semibold">
-              {month.substring(0, 3)}
-            </div>
-          </div>
+    {Array.from(shows).map(([month, dateMap]) => (
+      <div key={month} className="flex items-center gap-3">
 
-          {/* Dates */}
-          <div className="flex gap-1">
-            {Array.from(dateMap).map(([date, value]) => {
-              const isSelected = value === selectedDate;
-              //console.log(date)
-              return (
-                <div
-                  key={date}
-                  onClick={() => {setSelectedDate(value)}} // Update selected date on click
-                  className={
-                    isSelected
-                      ? "flex flex-col items-center bg-[#202020] text-white justify-center h-16 w-13 m-1 rounded-xl"
-                      : "flex flex-col items-center border-2 border-gray-100 justify-center h-16 w-13 m-1 rounded-xl hover:cursor-pointer"
-                  }
-                >
-                  {/* Date */}
-                  <div className="font-semibold">{date}</div>
-
-                  {/* Weekday */}
-                  <div className={isSelected ? "" : "text-gray-500"}>
-                    {getWeekDay(value.day)}
-                  </div>
-                </div>
-              );
-            })}
+        {/* Month */}
+        <div className="
+          h-14 w-6 sm:h-16 
+          bg-gray-100 
+          flex items-center justify-center 
+          rounded-lg sm:rounded-xl
+        ">
+          <div className="-rotate-90 text-xs sm:text-sm font-semibold">
+            {month.substring(0, 3)}
           </div>
         </div>
-      ))}
-    </div>
+
+        {/* Dates */}
+        <div className="flex gap-2">
+
+          {Array.from(dateMap).map(([date, value]) => {
+            const isSelected = value === selectedDate;
+
+            return (
+              <div
+                key={date}
+                onClick={() => setSelectedDate(value)}
+                className={`
+                  flex flex-col items-center justify-center
+                  min-w-[48px] sm:min-w-[56px]
+                  h-14 sm:h-16
+                  px-2
+                  rounded-lg sm:rounded-xl
+                  text-xs sm:text-sm
+                  transition-all duration-200
+                  ${isSelected
+                    ? "bg-[#202020] text-white shadow-md"
+                    : "border border-gray-200 text-gray-700 hover:bg-gray-100 cursor-pointer"
+                  }
+                `}
+              >
+                {/* Date */}
+                <div className="font-semibold">{date}</div>
+
+                {/* Weekday */}
+                <div className={isSelected ? "text-gray-200" : "text-gray-500"}>
+                  {getWeekDay(value.day)}
+                </div>
+              </div>
+            );
+          })}
+
+        </div>
+      </div>
+    ))}
+
+  </div>
+</div>
   );
 };
 
