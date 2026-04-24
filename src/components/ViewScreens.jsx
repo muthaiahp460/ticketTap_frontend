@@ -30,7 +30,7 @@ const ViewScreens = () => {
 
   const setPricing = async () => {
     try {
-      await axios.post(
+      const a=await axios.post(
         `http://localhost:3000/seat/price?showId=${selectedShowId}`,
         pricingForm,
         { withCredentials: true }
@@ -159,14 +159,10 @@ const ViewScreens = () => {
       ) : screens.length === 0 ? (
         <p>No screens available</p>
       ) : (
-        <div>{
-          console.log(screens)
-        }
+        <div>
           <div className="grid grid-cols-3 gap-4">
             {screens.map((screen,index) => (
-              <div key={index} className="bg-white p-4 rounded-xl shadow">
-                {console.log(screen)}
-          
+              <div key={index} className="bg-white p-4 rounded-xl shadow">          
                 <h3 className="font-semibold mb-2">
                   Screen {screen.screenNo}
                 </h3>
@@ -203,7 +199,7 @@ const ViewScreens = () => {
                     {/* Add Pricing Button */}
                     <button
                       onClick={() => {
-                        setSelectedShowId(show.id)
+                        setSelectedShowId(show.showId)
                         setOpenPricing(true)
                       }}
                       className="border-2 border-blue-500 text-blue-600 px-4 py-1.5 rounded hover:bg-blue-500 hover:text-white transition hover:cursor-pointer"
@@ -282,14 +278,14 @@ const ViewScreens = () => {
             <div className="flex justify-between">
               <button
                 onClick={() => setOpenSchedule(false)}
-                className="bg-gray-300 px-3 py-1 rounded"
+                className="bg-gray-300 px-3 py-1 rounded hover:cursor-pointer"
               >
                 Cancel
               </button>
 
               <button
                 onClick={addShow}
-                className="bg-green-600 text-white px-3 py-1 rounded"
+                className="bg-green-600 text-white px-3 py-1 rounded hover:cursor-pointer"
               >
                 Save
               </button>
@@ -340,14 +336,14 @@ const ViewScreens = () => {
             <div className="flex justify-between">
               <button
                 onClick={() => setOpenPricing(false)}
-                className="bg-gray-300 px-3 py-1 rounded"
+                className="bg-gray-300 px-3 py-1 rounded hover:cursor-pointer"
               >
                 Cancel
               </button>
 
               <button
                 onClick={setPricing}
-                className="bg-blue-600 text-white px-3 py-1 rounded"
+                className="bg-blue-600 text-white px-3 py-1 rounded hover:cursor-pointer"
               >
                 Save
               </button>

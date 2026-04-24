@@ -72,11 +72,12 @@ const BannerContainer = () => {
   };
 
   return (
-    <div className="relative overflow-hidden">
+    <div className="relative overflow-hidden w-full">
+
       {/* LEFT ARROW */}
       <button
         onClick={prevSlide}
-        className="absolute left-5 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-black/40 text-white text-xl flex items-center justify-center"
+        className="absolute left-2 sm:left-5 top-1/2 -translate-y-1/2 z-10 w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-black/40 text-white text-lg sm:text-xl flex items-center justify-center"
       >
         ‹
       </button>
@@ -84,12 +85,12 @@ const BannerContainer = () => {
       {/* RIGHT ARROW */}
       <button
         onClick={nextSlide}
-        className="absolute right-5 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-black/40 text-white text-xl flex items-center justify-center"
+        className="absolute right-2 sm:right-5 top-1/2 -translate-y-1/2 z-10 w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-black/40 text-white text-lg sm:text-xl flex items-center justify-center"
       >
         ›
       </button>
 
-      {/* SLIDER */}
+      {/* SLIDER (UNCHANGED LOGIC) */}
       <div
         className={`flex ${
           isTransition ? "transition-transform duration-700 ease-in-out" : ""
@@ -107,17 +108,21 @@ const BannerContainer = () => {
       </div>
 
       {/* DOTS */}
-      <div className="absolute bottom-5 left-1/2 -translate-x-1/2 flex gap-2">
+      <div className="absolute bottom-3 sm:bottom-5 left-1/2 -translate-x-1/2 flex gap-1.5 sm:gap-2">
         {movies.map((_, i) => (
           <div
             key={i}
             onClick={() => setIndex(i)}
-            className={`h-2 rounded-full cursor-pointer transition-all duration-300 ${
-              i === realIndex ? "w-5 bg-black" : "w-2 bg-gray-400"
-            }`}
+            className={`cursor-pointer transition-all duration-300 rounded-full
+              ${i === realIndex
+                ? "w-4 sm:w-5 h-1.5 sm:h-2 bg-black"
+                : "w-1.5 sm:w-2 h-1.5 sm:h-2 bg-gray-400"
+              }
+            `}
           />
         ))}
       </div>
+
     </div>
   );
 };

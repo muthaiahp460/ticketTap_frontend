@@ -28,7 +28,7 @@ const SeatLayouts = ({ rows = 14, cols = 22}) => {
     lounge: 400
   })
 
-  // 🔥 APPLY MODE TO ROW
+  //  APPLY MODE TO ROW
   const applyModeToRow = (rowIndex) => {
     const newLayout = [...layout]
     const row = newLayout[rowIndex]
@@ -173,7 +173,7 @@ console.log("muthu")
             <button
               key={mode}
               onClick={() => setSelectedMode(mode)}
-              className={`px-4 py-2 rounded ${
+              className={`px-4 py-2 rounded hover:cursor-pointer ${
                 selectedMode === mode
                   ? getColor()
                   : "bg-gray-200"
@@ -216,7 +216,6 @@ console.log("muthu")
                     }
                   `}
                 >
-                  {/* 🔥 ONLY ADD THIS LINE */}
                   {cell.type === "seat" ? getSeatNumber(row, j) : ""}
                 </div>
               ))}
@@ -228,7 +227,7 @@ console.log("muthu")
       {/* SAVE */}
       <button
         onClick={processData}
-        className="mt-4 bg-yellow-500 text-white px-4 py-2 rounded"
+        className="mt-4 bg-yellow-500 text-white px-4 py-2 rounded hover:cursor-pointer"
       >
         Save Layout
       </button>
