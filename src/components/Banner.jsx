@@ -1,6 +1,8 @@
 import React from "react";
+import { useNavigate } from "react-router";
 
 const Banner = ({ movie }) => {
+  const navigate=useNavigate()
   return (
     <div className="relative h-[420px] sm:h-[500px] overflow-hidden bg-white text-black">
       
@@ -71,7 +73,8 @@ const Banner = ({ movie }) => {
           </p>
 
           {/* CTA (NOW BELOW TEXT) */}
-          <button className="px-5 sm:px-6 py-2.5 sm:py-3 rounded-xl bg-black text-white text-sm sm:text-base">
+          <button className="px-5 sm:px-6 py-2.5 sm:py-3 rounded-xl bg-black text-white text-sm sm:text-base hover:cursor-pointer"
+          onClick={()=>navigate(`/movie/${movie.movieId}`)}>
             Book Now
           </button>
         </div>

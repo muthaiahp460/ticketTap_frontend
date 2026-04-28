@@ -71,7 +71,7 @@ const AddScreen = ({ theaterId, setScreen}) => {
 
           <button
             onClick={handleSubmit}
-            className="bg-yellow-400 py-2 rounded font-semibold hover:bg-yellow-500 transition"
+            className="bg-yellow-400 py-2 rounded font-semibold hover:bg-yellow-500 transition hover:cursor-pointer"
           >
             Add Screen
           </button>

@@ -123,8 +123,10 @@ const ViewScreens = () => {
       )
 
       if (res.data.message === "success") {
+        console.log(res.data.data)
         const groupedData = groupByScreen(res.data.data)
         setScreens(groupedData)
+        console.log(groupedData)
       }
     } catch {
       toast.error("Failed to load screens")
@@ -147,7 +149,7 @@ const ViewScreens = () => {
 
         <button
           onClick={fetchScreens}
-          className="bg-blue-600 text-white px-4 py-2 rounded-xl"
+          className="bg-blue-600 text-white px-4 py-2 rounded-xl hover:cursor-pointer"
         >
           Refresh
         </button>
@@ -220,7 +222,6 @@ const ViewScreens = () => {
           <div className="bg-white p-6 rounded-xl w-[350px]">
             
             <h2 className="font-semibold mb-4">Schedule Show</h2>
-
             <input
               type="date"
               value={form.showDate}

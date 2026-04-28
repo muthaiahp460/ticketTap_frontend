@@ -8,7 +8,7 @@ export const useMovieDetails = (id) => {
   try{
   useEffect(()=>{
     const fetchData=async()=>{
-    const movieDetails=await axios.get(`http://localhost:3000/movies/${id}`)
+    const movieDetails=await axios.get(`http://localhost:3000/movies/id/${id}`)
     const showDetails=await axios.get(`http://localhost:3000/movies/${id}/shows`)
     console.log(showDetails.data.data)
     setMovie(movieDetails.data.data)

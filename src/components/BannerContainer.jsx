@@ -1,36 +1,17 @@
 import React, { useEffect, useState } from "react";
 import Banner from "./Banner";
+import axios from "axios";
 
 const BannerContainer = () => {
-  const movies = [
-    {
-      title: "LIK: Love Insurance Kompany",
-      genre: "UA13+ | Romance, Comedy +1 more",
-      desc: "A man who believes in traditional ideas of love crosses paths with Dheema.",
-      banner:
-        "https://cdn.district.in/movies-assets/images/cinema/LIK-new-eb95c3a0-3335-11f1-b177-83aef5e0b8cb.jpg",
-      poster:
-        "https://cdn.district.in/movies-assets/images/cinema/LIK-new-eb95c3a0-3335-11f1-b177-83aef5e0b8cb.jpg",
-    },
-    {
-      title: "Vaazha II",
-      genre: "UA13+ | Comedy, Drama",
-      desc: "Story of young men navigating adulthood and friendship.",
-      banner:
-        "https://cdn.district.in/movies-assets/images/cinema/Vaazha%202-43d71120-2c2b-11f1-a7d0-35090adde4d8.jpg",
-      poster:
-        "https://cdn.district.in/movies-assets/images/cinema/Vaazha%202-43d71120-2c2b-11f1-a7d0-35090adde4d8.jpg",
-    },
-    {
-      title: "Mr. X",
-      genre: "UA13+ | Action, Thriller",
-      desc: "A rogue agent uncovers a global conspiracy.",
-      banner:
-        "https://cdn.district.in/movies-assets/images/cinema/Mrx--049f0200-3735-11f1-9d7b-1f3ab138d345.jpg",
-      poster:
-        "https://cdn.district.in/movies-assets/images/cinema/Mrx--049f0200-3735-11f1-9d7b-1f3ab138d345.jpg",
-    },
-  ];
+  const [movies,setMovies]=useState([])
+  useEffect(() => {
+    const func=async(req,res)=>{
+      const result=await axios.get("http://localhost:3000/movies/trending")
+      setMovies(result.data.data)
+    }
+    func()
+  },[])
+
 
   const extended = [...movies, ...movies];
 
