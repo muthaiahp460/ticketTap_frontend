@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getWeekDay } from "../utils/date";
+import { getWeekDay } from "../../utils/date";
 
 const ShowListing = ({ shows, selectedDate, setSelectedDate }) => {
 

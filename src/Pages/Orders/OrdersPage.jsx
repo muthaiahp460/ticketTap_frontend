@@ -1,33 +1,10 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import useOrders from "../../hooks/useOrders";
 
 const OrdersPage = () => {
-  const [bookings, setBookings] = useState([]);
-
-  useEffect(() => {
-    const fetchOrders = async () => {
-      try {
-        const res = await axios.get("http://localhost:3000/booking/orders",{withCredentials:true});
-
-        console.log("FULL RESPONSE:", res);
-        console.log("DATA:", res.data);
-
-        // ✅ ALWAYS ensure array
-        if (Array.isArray(res.data?.data)) {
-          setBookings(res.data.data);
-        } else {
-          console.warn("API did not return array");
-          setBookings([]);
-        }
-      } catch (err) {
-        console.error(err);
-        setBookings([]); // fallback
-      }
-    };
-
-    fetchOrders();
-  }, []);
-
+  const bookings=useOrders()
+  
   const now = new Date();
 
   // ✅ SAFETY: always use array

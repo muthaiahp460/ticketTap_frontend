@@ -1,10 +1,10 @@
 import { useState,useEffect } from 'react'
-import Navbar from './Navbar.jsx' 
-import MovieListing from './components/MovieListing.jsx'
-import SearchOverlay from './components/SearchOverlay.jsx'
-import { useMovies } from './hooks/useMovies.jsx'
-import Banner from './components/Banner.jsx'
-import BannerContainer from './components/BannerContainer.jsx'
+import Navbar from '../../components/Layout/Navbar.jsx' 
+import MovieListing from '../../components/Movie/MovieListing.jsx'
+import SearchOverlay from '../../components/Layout/SearchOverlay.jsx'
+import { useMovies } from '../../hooks/useMovies.jsx'
+import Banner from '../../components/Layout/Banner.jsx'
+import BannerContainer from '../../components/Layout/BannerContainer.jsx'
 
 const Home = () => {
   const [search,setSearch]=useState("")

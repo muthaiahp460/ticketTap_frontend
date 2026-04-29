@@ -1,3 +1,4 @@
+
 const MovieBanner = ({ movie }) => {
   return (
     <div className="w-full px-3 sm:px-6 lg:px-12 pt-6 pb-4">
@@ -23,9 +24,9 @@ const MovieBanner = ({ movie }) => {
           {/* Info Row */}
           <div className="text-xs sm:text-sm text-gray-600 leading-relaxed">
             {movie.certificate} • {movie.language} • {movie.genre} •{" "}
-            {`${Math.floor(movie.duration / 60)}h ${
-              Math.floor(movie.duration % 60)
-            }m`}
+            {movie.duration
+  ? `${Math.floor(movie.duration / 60)}h ${Math.floor(movie.duration % 60)}m`
+  : ""}
           </div>
 
         </div>

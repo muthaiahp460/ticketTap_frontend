@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import logo from "./assets/tickettap_logo.png";
+import logo from "../../assets/tickettap_logo.png";
 import { CiLocationOn } from "react-icons/ci";
 import { CiSearch } from "react-icons/ci";
 import Search from "./Search";

@@ -16,7 +16,6 @@ export const useMovieDetails = (id) => {
   }
   fetchData();
   },[id])
-  //console.log(movie)
   }
   catch(err){
     console.log(err)

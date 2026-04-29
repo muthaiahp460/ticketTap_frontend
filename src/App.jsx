@@ -1,29 +1,27 @@
 import "./App.css"
-import Home from "./Home"
+import Home from "./Pages/Home/Home"
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
-import Page from "./Page"
-import ShimmerCard from "./ShimmerCard";
-import SeatLayout from "./SeatLayout";
-import Register from "./components/Register";
-import Login from "./components/Login";
-import Dashboard from "./Dashboard";
-import ViewScreens from "./components/ViewScreens";
-import SeatLayouts from "./components/SeatLayouts";
+import SeatLayout from "./Pages/Booking/SeatLayout";
+import Register from "./components/Auth/Register";
+import Login from "./components/Auth/Login";
+import Dashboard from "./Pages/Admin/Dashboard";
+import ViewScreens from "./components/Theater/ViewScreens";
+import SeatLayouts from "./components/Booking/SeatLayouts";
 import ProtectedRoute from "./ProtectedRoute";
 import { useState } from "react";
-import PaymentPage from "./components/PaymentPage";
-import SuccessPage from "./SuccessPage";
-import OrdersPage from "./components/OrdersPage";
+import PaymentPage from "./Pages/Payment/PaymentPage";
+import SuccessPage from "./Pages/Payment/SuccessPage";
+import OrdersPage from "./Pages/Orders/OrdersPage";
+import MovieDetails from "./Pages/Movies/MovieDetails";
 function App() { 
   const [user,setUser]=useState({})
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Home/>}></Route>
-        <Route path="/movie/:id" element={<Page/>}></Route>
+        <Route path="/movie/:id" element={<MovieDetails/>}></Route>
         <Route path="/register" element={<Register/>}></Route>
         <Route path="/login" element={<Login/>}></Route>
-        <Route path="/shimmer" element={<ShimmerCard/>}></Route>
         
         <Route element={<ProtectedRoute user={user} setUser={setUser} role={"user"}/>}>
           <Route path="/show/:id/seatLayout" element={<SeatLayout/>}></Route>

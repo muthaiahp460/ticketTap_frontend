@@ -1,32 +1,37 @@
 import { useEffect, useState } from "react"
-import axios from "axios"
 import { useLocation, useNavigate, useParams } from "react-router"
+import { handlePayment } from "./handlePayment"
+import { toast, ToastContainer } from "react-toastify"
 
 const PaymentPage = () => {
-  
   const { bookingId } = useParams()
   const location = useLocation()
   const navigate = useNavigate()
 
-  const { amount, expiresAt } = location.state
-  if (!location.state) {
-  alert("Session expired. Please try again.")
-  navigate("/")
-  return null
-  }
+  const { amount, expiresAt } = location.state || {}
+
   const [timeLeft, setTimeLeft] = useState(0)
 
-  // Timer based on backend expiry
+  // Handle missing session safely
   useEffect(() => {
-    const expiry = expiresAt
-    console.log(expiry)
+    if (!location.state) {
+      toast.error("Session expired. Please try again.")
+      navigate("/")
+    }
+  }, [location.state, navigate])
+
+  // Countdown timer
+  useEffect(() => {
+    if (!expiresAt) return
+
+    const expiry = new Date(expiresAt).getTime()
 
     const interval = setInterval(() => {
       const diff = Math.floor((expiry - Date.now()) / 1000)
 
       if (diff <= 0) {
         clearInterval(interval)
-        alert("Time expired! Seats released.")
+        toast.error("Time expired! Seats released.")
         navigate("/")
       } else {
         setTimeLeft(diff)
@@ -34,68 +39,11 @@ const PaymentPage = () => {
     }, 1000)
 
     return () => clearInterval(interval)
-  }, [expiresAt])
-
-  // Create order + open Razorpay
-  const handlePayment = async () => {
-    try {
-      const res = await axios.post(
-        "http://localhost:3000/booking/create-order",
-        { bookingId, amount },
-        { withCredentials: true }
-      )
-
-      const { orderId } = res.data
-
-      const options = {
-        key: "rzp_test_SgbVDUEzNTIhd1", //  replace with your key
-        amount: amount * 100,
-        currency: "INR",
-        name: "Ticket Booking",
-        description: "Movie Ticket",
-
-        order_id: orderId,
-
-        handler: async function (response) {
-          //  VERIFY PAYMENT
-          await axios.post(
-            "http://localhost:3000/booking/verify-payment",
-            {
-              ...response,
-              bookingId,
-            },
-            { withCredentials: true }
-          )
-
-          alert("Payment Successful 🎉")
-          console.log(bookingId)
-          navigate(`/success/${bookingId}`)
-        },
-
-        modal: {
-          ondismiss: function () {
-            alert("Payment cancelled")
-          },
-        },
-
-        theme: {
-          color: "#3399cc",
-        },
-      }
-      if (!window.Razorpay) {
-        alert("Payment SDK not loaded")
-        return
-      }
-      const rzp = new window.Razorpay(options)
-      rzp.open()
-    } catch (err) {
-      console.error(err)
-      alert("Payment failed to start")
-    }
-  }
+  }, [expiresAt, navigate])
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-900 to-blue-500">
+      <ToastContainer position="top-right"></ToastContainer>
       <div className="bg-white rounded-2xl shadow-2xl p-8 w-[360px] text-center">
 
         {/* Title */}
@@ -120,9 +68,9 @@ const PaymentPage = () => {
           </h2>
         </div>
 
-        {/* Button */}
+        {/* Pay Button */}
         <button
-          onClick={handlePayment}
+          onClick={() => handlePayment(bookingId, amount, navigate)}
           className="w-full py-3 rounded-xl bg-gradient-to-r from-pink-500 to-red-500 text-white font-semibold text-lg hover:opacity-90 transition duration-300 hover:cursor-pointer"
         >
           💳 Pay Now

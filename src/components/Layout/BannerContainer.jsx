@@ -1,17 +1,29 @@
 import React, { useEffect, useState } from "react";
 import Banner from "./Banner";
 import axios from "axios";
+import ShimmerBannerContainer from "../../Shimmer/SimmerBannerContainer";
 
 const BannerContainer = () => {
-  const [movies,setMovies]=useState([])
-  useEffect(() => {
-    const func=async(req,res)=>{
-      const result=await axios.get("http://localhost:3000/movies/trending")
-      setMovies(result.data.data)
-    }
-    func()
-  },[])
+  const [movies, setMovies] = useState([]);
+  const [loading, setLoading] = useState(true);
 
+  useEffect(() => {
+    const fetchData = async () => {
+      const startTime = Date.now();
+
+      const result = await axios.get("http://localhost:3000/movies/trending");
+
+      const elapsed = Date.now() - startTime;
+      const remaining = 500 - elapsed; 
+
+      setTimeout(() => {
+        setMovies(result.data.data);
+        setLoading(false);
+      }, remaining > 0 ? remaining : 0);
+    };
+
+    fetchData();
+  }, []);
 
   const extended = [...movies, ...movies];
 
@@ -26,7 +38,7 @@ const BannerContainer = () => {
   }, []);
 
   useEffect(() => {
-    if (index === movies.length) {
+    if (index === movies.length && movies.length > 0) {
       setTimeout(() => {
         setIsTransition(false);
         setIndex(0);
@@ -35,7 +47,7 @@ const BannerContainer = () => {
     }
   }, [index, movies.length]);
 
-  const realIndex = index % movies.length;
+  const realIndex = movies.length > 0 ? index % movies.length : 0;
 
   const nextSlide = () => setIndex((prev) => prev + 1);
 
@@ -51,6 +63,11 @@ const BannerContainer = () => {
       setIndex((prev) => prev - 1);
     }
   };
+
+  // 🔥 Shimmer with minimum 1s
+  if (loading) {
+    return <ShimmerBannerContainer />;
+  }
 
   return (
     <div className="relative overflow-hidden w-full">
@@ -71,7 +88,7 @@ const BannerContainer = () => {
         ›
       </button>
 
-      {/* SLIDER (UNCHANGED LOGIC) */}
+      {/* SLIDER */}
       <div
         className={`flex ${
           isTransition ? "transition-transform duration-700 ease-in-out" : ""
@@ -95,9 +112,10 @@ const BannerContainer = () => {
             key={i}
             onClick={() => setIndex(i)}
             className={`cursor-pointer transition-all duration-300 rounded-full
-              ${i === realIndex
-                ? "w-4 sm:w-5 h-1.5 sm:h-2 bg-black"
-                : "w-1.5 sm:w-2 h-1.5 sm:h-2 bg-gray-400"
+              ${
+                i === realIndex
+                  ? "w-4 sm:w-5 h-1.5 sm:h-2 bg-black"
+                  : "w-1.5 sm:w-2 h-1.5 sm:h-2 bg-gray-400"
               }
             `}
           />
