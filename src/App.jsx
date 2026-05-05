@@ -13,6 +13,7 @@ import PaymentPage from "./Pages/Payment/PaymentPage";
 import SuccessPage from "./Pages/Payment/SuccessPage";
 import OrdersPage from "./Pages/Orders/OrdersPage";
 import MovieDetails from "./Pages/Movies/MovieDetails";
+import Scanner from "./components/Scanner";
 function App() { 
   const [user,setUser]=useState({})
   return (
@@ -33,6 +34,7 @@ function App() {
           <Route path="/admin/dashboard" element={<Dashboard/>}></Route>
           <Route path="/admin/dashboard/screens/:theaterId" element={<ViewScreens/>}></Route>
           <Route path="/admin/seat/:screenId" element={<SeatLayouts/>}></Route>
+          {/*<Route path="/admin/scan" element={<Scanner/>}></Route>*/}
         </Route>
       </Routes>
     </BrowserRouter>

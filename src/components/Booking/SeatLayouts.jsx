@@ -1,6 +1,7 @@
 import axios from "axios"
 import React, { useState } from "react"
 import { useParams } from "react-router"
+import { API_BASE_URL } from "../../utils/apiConfig"
 
 const SeatLayouts = ({ rows = 14, cols = 22}) => {
   const params=useParams()
@@ -8,7 +9,7 @@ const SeatLayouts = ({ rows = 14, cols = 22}) => {
   
   const [layout, setLayout] = useState(() => {
     return Array.from({ length: rows }, (_, i) => ({
-      rowLabel: String.fromCharCode(65 + i),
+      rowLabel: String.fromCharCode(65+i),
       type: "seatRow",
       prevType: null,
       cells: Array.from({ length: cols }, (_, j) => ({
@@ -138,20 +139,16 @@ const SeatLayouts = ({ rows = 14, cols = 22}) => {
       layout: layoutData 
     }
 
-    console.log("Sending:", payload)
-
-    await axios.post("http://localhost:3000/seat/add", payload, {
+    await axios.post(`${API_BASE_URL}/seat/add`, payload, {
       withCredentials: true
     })
 
     alert("Seat layout saved successfully")
 
-  } catch (err) {
-    console.error(err)
+  } catch (_e) {
     alert("Failed to save layout")
   }
 }
-console.log("muthu")
   return (
     <div className="flex flex-col gap-6 py-4 px-40">
 

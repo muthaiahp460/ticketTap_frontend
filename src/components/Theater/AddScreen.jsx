@@ -2,6 +2,7 @@ import React, { useState } from "react"
 import axios from "axios"
 import { toast, ToastContainer } from "react-toastify"
 import { X } from "lucide-react"
+import { API_BASE_URL } from "../../utils/apiConfig"
 
 const AddScreen = ({ theaterId, setScreen}) => {
   const [screenNo, setScreenNo] = useState("")
@@ -14,8 +15,8 @@ const AddScreen = ({ theaterId, setScreen}) => {
       return
     }
     try {
-      const res = await axios.post(
-        "http://localhost:3000/screen/",
+      await axios.post(
+        `${API_BASE_URL}/screen/`,
         {
             theaterId:theaterId,
             screenNo:screenNo,

@@ -2,6 +2,7 @@ import axios from 'axios'
 import { X } from 'lucide-react'
 import React, { useEffect, useState } from 'react'
 import { toast, ToastContainer } from 'react-toastify'
+import { API_BASE_URL } from '../../utils/apiConfig'
 
 const AddTheater = ({setOpen}) => {
   const [name,setName]=useState("")
@@ -12,7 +13,7 @@ const AddTheater = ({setOpen}) => {
   const handleClick=async()=>{
     try{
       await axios.post(
-      "http://localhost:3000/theater",{
+      `${API_BASE_URL}/theater`,{
         name:name,
         location:location
       },{

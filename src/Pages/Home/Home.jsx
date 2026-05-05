@@ -1,4 +1,4 @@
-import { useState,useEffect } from 'react'
+import { useState } from 'react'
 import Navbar from '../../components/Layout/Navbar.jsx' 
 import MovieListing from '../../components/Movie/MovieListing.jsx'
 import SearchOverlay from '../../components/Layout/SearchOverlay.jsx'

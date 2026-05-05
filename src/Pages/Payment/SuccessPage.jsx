@@ -1,11 +1,9 @@
-import { useLocation, useNavigate, useParams } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 
 const SuccessPage = () => {
   const navigate = useNavigate()
-  const location = useLocation()
   const params=useParams()
   const bookingId = params.bookingId
-  console.log(bookingId)
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-green-500 to-green-700">
       <div className="bg-white p-8 rounded-2xl shadow-xl text-center w-[350px]">

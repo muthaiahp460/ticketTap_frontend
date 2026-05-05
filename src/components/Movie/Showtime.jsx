@@ -3,8 +3,6 @@ import { useNavigate } from "react-router";
 const Showtime = ({ shows }) => {
   const navigate = useNavigate();
 
-  console.log(shows);
-
   if (!shows || !shows.shows || shows.shows.length === 0) {
     return <p className="text-center mt-6">No shows available</p>;
   }

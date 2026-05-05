@@ -1,6 +1,5 @@
 
 const SeatListing = ({seats,selectedSeats}) => {
-console.log(seats)
   return (
     <div className='flex flex-col gap-6 items-center m-4'>
         {

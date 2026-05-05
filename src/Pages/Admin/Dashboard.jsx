@@ -1,6 +1,6 @@
 
 import AddTheater from "../../components/Theater/AddTheater";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import AddScreen from "../../components/Theater/AddScreen";
 import Navbar from "./Components/Navbar";
 import Sidebar from "./Components/Sidebar";
@@ -14,9 +14,7 @@ const Dashboard = () => {
   const [screen, setScreen] = useState(false);
   const [selectedTheaterId, setSelectedTheaterId] = useState(null);
   const [filter, setFilter] = useState("1m");
-  const [startDate, setStartDate] = useState("");
-  const [endDate, setEndDate] = useState("");
-  const {analytics}=useAnalytics(filter, startDate, endDate)
+  const {analytics}=useAnalytics(filter, "", "")
 
   return (
     <div className="flex">

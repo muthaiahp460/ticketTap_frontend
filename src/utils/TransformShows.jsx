@@ -18,7 +18,6 @@ const transformShows = (data) => {
     }
 
     dateMap.get(date).shows.push(show);
-    console.log(dateMap)
   });
 
   return monthMap;

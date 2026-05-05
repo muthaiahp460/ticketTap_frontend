@@ -1,4 +1,5 @@
 import axios from "axios"
+import { API_BASE_URL } from "./apiConfig"
 
 export const calculatePrice = async (id,selectedSeatIds) => {
       if (selectedSeatIds.length === 0) {
@@ -6,11 +7,11 @@ export const calculatePrice = async (id,selectedSeatIds) => {
       }
       try {
         const result = await axios.post(
-          `http://localhost:3000/show/${id}/seats/price`,
+          `${API_BASE_URL}/show/${id}/seats/price`,
           { seatIds: selectedSeatIds, showId: id }
         )
         return result.data.price
-      } catch (error) {
-        console.error("Price calculation failed", error)
+      } catch (_e) {
+        // Error handled silently
       }
 }

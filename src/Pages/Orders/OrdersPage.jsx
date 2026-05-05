@@ -1,5 +1,3 @@
-import { useEffect, useState } from "react";
-import axios from "axios";
 import useOrders from "../../hooks/useOrders";
 
 const OrdersPage = () => {

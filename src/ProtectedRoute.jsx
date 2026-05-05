@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Navigate, Outlet } from "react-router-dom";
+import { API_BASE_URL } from "./utils/apiConfig";
 
 const ProtectedRoute = ({ user, setUser, role }) => {
   const [loading, setLoading] = useState(true);
@@ -10,13 +11,12 @@ const ProtectedRoute = ({ user, setUser, role }) => {
       try {
         if (!user || !user.role) {
           const result = await axios.get(
-            "http://localhost:3000/auth/verify",
+            `${API_BASE_URL}/auth/verify`,
             { withCredentials: true }
           );
           setUser(result.data);
         }
-      } catch (err) {
-        console.log(err);
+      } catch (_e) {
         setUser(null);
       } finally {
         setLoading(false);

@@ -6,6 +6,7 @@ import { toast, ToastContainer } from 'react-toastify'
 import { calculatePrice } from '../../utils/calculatePrice'
 import SeatGrid from "../../components/Booking/SeatGrid"
 import BookingFooter from "../../components/Booking/BookingFooter"
+import { API_BASE_URL } from '../../utils/apiConfig'
 
 const SeatLayout = () => {
   const navigate = useNavigate()
@@ -17,23 +18,21 @@ const SeatLayout = () => {
   const [selectedSeatIds, setselectedSeatIds] = useState([])
   const [price,setPrice]=useState(0)
 
-  const now = Date.now()
-
   // fetch seats
   const fetchSeats = async () => {
     try {
-      const result = await axios.get(`http://localhost:3000/show/${id}/seats`)
+      const result = await axios.get(`${API_BASE_URL}/show/${id}/seats`)
       setSeats(transformSeats(result.data.data))
-    } catch (error) {
-      console.error("Error fetching seats:", error)
+    } catch (_error) {
+      // Error handled silently
     }
   }
 
   useEffect(() => {
     fetchSeats()
-    //Setup interval inside the same effect or keep separate
-    //const interval = setInterval(fetchSeats, 3000)
-    //return () => clearInterval(interval)
+    // Setup interval inside the same effect or keep separate
+    // const interval = setInterval(fetchSeats, 3000)
+    // return () => clearInterval(interval)
   }, [id])
 
   // price calculation
@@ -49,7 +48,7 @@ const SeatLayout = () => {
   const lockSeats = async () => {
     try {
       const res = await axios.post(
-        `http://localhost:3000/booking`,
+        `${API_BASE_URL}/booking`,
         { showId: id, seatIds: selectedSeatIds },
         { withCredentials: true }
       )

@@ -2,6 +2,7 @@ import { toast, ToastContainer } from 'react-toastify'
 import React, { useState,useEffect } from 'react'
 import { useNavigate } from 'react-router'
 import axios from 'axios'
+import { API_BASE_URL } from '../../utils/apiConfig'
 const Login = () => {
   const [email, setEmail] = useState("")
   const [password,setPassword]=useState("")
@@ -34,7 +35,7 @@ const Login = () => {
 
   const handleLogin=async()=>{
     try{
-      const result=await axios.post("http://localhost:3000/auth/login",{
+      const _result=await axios.post(`${API_BASE_URL}/auth/login`,{
       email:email,
       password:password
       },{
@@ -42,19 +43,18 @@ const Login = () => {
       })
       toast.success("Login Success")
       try{
-        const result=await axios.get("http://localhost:3000/auth/verify",{withCredentials:true})
-        if(result.data.role=="user")
+        const _result=await axios.get(`${API_BASE_URL}/auth/verify`,{withCredentials:true})
+        if(_result.data.role=="user")
           navigate("/")
-        if(result.data.role=="admin")
+        if(_result.data.role=="admin")
           navigate("/admin/dashboard")
       }
       catch{
-
+        // Auth check failed
       }
     }
-    catch(err){
+    catch(e){
       toast.error("Login failed")
-      console.log(err)
     }
   }
 
@@ -63,7 +63,7 @@ const Login = () => {
       validateData()
     }
   }
-  ,[email,password])
+  ,[email,password,click,validateData])
   return (
     <div className='min-h-screen flex items-center justify-center'>
       

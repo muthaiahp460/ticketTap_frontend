@@ -2,6 +2,7 @@ import axios from 'axios'
 import React, { useState,useEffect } from 'react'
 import { useNavigate } from 'react-router';
 import { ToastContainer, toast } from 'react-toastify';
+import { API_BASE_URL } from '../../utils/apiConfig';
 
 const Register = () => {
   const navigate=useNavigate()
@@ -56,39 +57,33 @@ const Register = () => {
 
   const handleRegister=async()=>{
     try{
-    
-    console.log(role)
     if(role=="admin"){
-      const result=await axios.post(`http://localhost:3000/auth/register/admin`,{
+      const _result=await axios.post(`${API_BASE_URL}/auth/register/admin`,{
         name:name,
         email:email,
         password:password,
         phoneNo:phoneNo,
         Secret:Secret
       })
-      console.log(result)
     }
     if(role=="user"){
-      const result=await axios.post(`http://localhost:3000/auth/register/user`,{
+      const _result=await axios.post(`${API_BASE_URL}/auth/register/user`,{
         name:name,
         email:email,
         password:password,
         phoneNo:phoneNo,
     })
-    console.log(result)
     toast.success("Registered sucessfully")
     navigate("/")
     }}
-    catch(err){
-      
-      console.log(err.status)
+    catch(_e){
       toast.error("Registerion failed")
     }
   }
 
   useEffect(() => {
-  if (click) validateData()
-}, [name, email, password, phoneNo, Secret, role])
+    if (click) validateData()
+  }, [name, email, password, phoneNo, Secret, role, click, validateData])
 
   return (
     <div className="min-h-screen flex items-center justify-center">

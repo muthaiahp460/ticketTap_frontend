@@ -2,7 +2,7 @@ import ListTheaters from "../../../components/Theater/ListTheaters";
 import Search from "../../../components/Layout/Search";
 import React from 'react'
 
-const ViewTheaters = ({setScreen,selectedTheaterId,setSelectedTheaterId}) => {
+const ViewTheaters = ({setOpen,setScreen,selectedTheaterId,setSelectedTheaterId}) => {
   return (
     <div>
         <div className="flex justify-between">

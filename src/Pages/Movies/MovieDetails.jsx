@@ -1,4 +1,4 @@
-import {useEffect, useState } from "react";
+import { useState } from "react";
 import Showtime from "../../components/Movie/Showtime";
 import { useParams } from "react-router";
 import { useMovieDetails } from "../../hooks/useMovieDetails";

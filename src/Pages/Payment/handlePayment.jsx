@@ -1,11 +1,12 @@
 import axios from "axios"
 import { toast } from "react-toastify"
+import { API_BASE_URL } from "../../utils/apiConfig"
 
 // Create order + open Razorpay
 export const handlePayment = async (bookingId, amount, navigate) => {
   try {
     const res = await axios.post(
-      "http://localhost:3000/booking/create-order",
+      `${API_BASE_URL}/booking/create-order`,
       { bookingId, amount },
       { withCredentials: true }
     )
@@ -28,7 +29,7 @@ export const handlePayment = async (bookingId, amount, navigate) => {
       handler: async function (response) {
         try {
           await axios.post(
-            "http://localhost:3000/booking/verify-payment",
+            `${API_BASE_URL}/booking/verify-payment`,
             {
               ...response,
               bookingId,
@@ -38,8 +39,7 @@ export const handlePayment = async (bookingId, amount, navigate) => {
 
           toast.success("Payment Successful 🎉")
           setTimeout(()=>navigate(`/success/${bookingId}`),500)
-        } catch (err) {
-          console.error(err)
+        } catch (_e) {
           toast.error("Payment verification failed ❌")
         }
       },
@@ -54,8 +54,7 @@ export const handlePayment = async (bookingId, amount, navigate) => {
     const rzp = new window.Razorpay(options)
     rzp.open()
 
-  } catch (err) {
-    console.error(err)
+  } catch (_e) {
     toast.error("Payment failed to start")
   }
 }

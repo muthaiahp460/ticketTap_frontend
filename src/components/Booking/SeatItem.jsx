@@ -1,6 +1,6 @@
 import handleSelect from "../../utils/handleSelect"
 
-const SeatItem = ({ seat, index, rowNo, selectedSeats, setSelectedseats, setselectedSeatIds, now }) => {
+const SeatItem = ({ seat, selectedSeats, setSelectedseats, setselectedSeatIds, now }) => {
 
   if (!seat || !seat.rowNo) {
     return <div className="w-5 h-5 sm:w-7 sm:h-7" />

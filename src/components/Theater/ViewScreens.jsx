@@ -3,6 +3,7 @@ import axios from "axios"
 import { toast, ToastContainer } from "react-toastify"
 import { useNavigate, useParams } from "react-router"
 import { useMovies } from "../../hooks/useMovies"
+import { API_BASE_URL } from "../../utils/apiConfig"
 
 const ViewScreens = () => {
   const { theaterId } = useParams()
@@ -31,7 +32,7 @@ const ViewScreens = () => {
   const setPricing = async () => {
     try {
       const a=await axios.post(
-        `http://localhost:3000/seat/price?showId=${selectedShowId}`,
+        `${API_BASE_URL}/seat/price?showId=${selectedShowId}`,
         pricingForm,
         { withCredentials: true }
       )
@@ -65,7 +66,7 @@ const ViewScreens = () => {
   const addShow = async () => {
     try {
       await axios.post(
-        "http://localhost:3000/show",
+        `${API_BASE_URL}/show`,
         {
           movieId,
           screenId: form.screenId,
@@ -118,7 +119,7 @@ const ViewScreens = () => {
     setLoading(true)
     try {
       const res = await axios.get(
-        `http://localhost:3000/show?theaterId=${theaterId}`,
+        `${API_BASE_URL}/show?theaterId=${theaterId}`,
         { withCredentials: true }
       )
 

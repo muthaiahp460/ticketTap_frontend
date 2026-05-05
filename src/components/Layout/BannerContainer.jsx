@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import Banner from "./Banner";
 import axios from "axios";
 import ShimmerBannerContainer from "../../Shimmer/SimmerBannerContainer";
+import { API_BASE_URL } from "../../utils/apiConfig";
 
 const BannerContainer = () => {
   const [movies, setMovies] = useState([]);
@@ -11,7 +12,7 @@ const BannerContainer = () => {
     const fetchData = async () => {
       const startTime = Date.now();
 
-      const result = await axios.get("http://localhost:3000/movies/trending");
+      const result = await axios.get(`${API_BASE_URL}/movies/trending`);
 
       const elapsed = Date.now() - startTime;
       const remaining = 500 - elapsed; 

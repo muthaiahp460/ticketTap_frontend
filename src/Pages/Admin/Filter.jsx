@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Filter = ({filter,setFilter}) => {
+const Filter = ({filter,setFilter,startDate,setStartDate,endDate,setEndDate}) => {
   return (
     <div className="flex items-center justify-between bg-white p-4 rounded-2xl shadow">
         <h2 className="font-semibold text-gray-700">Analytics</h2>

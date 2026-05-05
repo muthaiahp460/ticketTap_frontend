@@ -2,13 +2,14 @@ import axios from 'axios'
 import { Theater, X } from 'lucide-react'
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router'
+import { API_BASE_URL } from '../../utils/apiConfig'
 
 const ListTheaters = ({setScreen,setSelectedTheaterId,theaterId}) => {
   const navigate=useNavigate()
   const [theaters,setTheaters]=useState([])  
   useEffect(()=>{
     const getTheaters=async()=>{
-        const result=await axios.get("http://localhost:3000/theater/mine",{withCredentials:true})
+        const result=await axios.get(`${API_BASE_URL}/theater/mine`,{withCredentials:true})
         setTheaters(result.data.data)
         console.log(result.data.data)
     }

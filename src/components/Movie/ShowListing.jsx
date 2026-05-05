@@ -1,13 +1,11 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { getWeekDay } from "../../utils/date";
 
 const ShowListing = ({ shows, selectedDate, setSelectedDate }) => {
 
   useEffect(()=>{
-    const mapData = shows.get(0);
     const firstmonth=shows.entries().next().value
     const firstdate = firstmonth?.[1]?.values().next().value;
-    console.log(firstdate)
     if(firstdate)
       setSelectedDate(firstdate)
   },[shows])

@@ -6,6 +6,7 @@ import Search from "./Search";
 import { useNavigate } from "react-router";
 import axios from "axios";
 import { ShoppingBag } from "lucide-react";
+import { API_BASE_URL } from "../../utils/apiConfig";
 
 const Navbar = ({ search, setSearch }) => {
   const navigate = useNavigate();
@@ -16,11 +17,11 @@ const Navbar = ({ search, setSearch }) => {
   useEffect(() => {
     const func = async () => {
       try {
-        await axios.get(`http://localhost:3000/auth/verify`, {
+        await axios.get(`${API_BASE_URL}/auth/verify`, {
           withCredentials: true,
         });
         setAuthorized(true);
-      } catch (err) {
+      } catch (_e) {
         setAuthorized(false);
       }
     };
@@ -95,7 +96,7 @@ const Navbar = ({ search, setSearch }) => {
               const func = async () => {
                 if (authorized) {
                   await axios.post(
-                    "http://localhost:3000/auth/logout",
+                    `${API_BASE_URL}/auth/logout`,
                     {},
                     { withCredentials: true }
                   );

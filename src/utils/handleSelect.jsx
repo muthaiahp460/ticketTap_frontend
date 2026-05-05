@@ -1,3 +1,5 @@
+import { toast } from "react-toastify"
+
 const handleSelect = (selectedSeats,setSelectedseats,setselectedSeatIds,s, isAvailable) => {
     if (!s || !s.rowNo || !s.seatNO || !isAvailable) return
 

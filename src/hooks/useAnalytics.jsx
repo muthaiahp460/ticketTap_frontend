@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { useState,useEffect } from 'react'
+import { API_BASE_URL } from '../utils/apiConfig';
 
 export const useAnalytics = (filter, startDate, endDate) => {
   const [analytics,setAnalytics]=useState({})
@@ -32,7 +33,7 @@ export const useAnalytics = (filter, startDate, endDate) => {
       }
 
       const res = await axios.get(
-        `http://localhost:3000/analysis/theater?startDate=${start}&endDate=${end}`,
+        `${API_BASE_URL}/analysis/theater?startDate=${start}&endDate=${end}`,
         { withCredentials: true }
       );
 
