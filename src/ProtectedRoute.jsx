@@ -1,11 +1,11 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { Navigate, Outlet } from "react-router-dom";
+import { Navigate, Outlet, useNavigate } from "react-router-dom";
 import { API_BASE_URL } from "./utils/apiConfig";
 
 const ProtectedRoute = ({ user, setUser, role }) => {
   const [loading, setLoading] = useState(true);
-
+  const navigate=useNavigate()
   useEffect(() => {
     const checkUser = async () => {
       try {
@@ -38,6 +38,7 @@ const ProtectedRoute = ({ user, setUser, role }) => {
 
   // ❌ Wrong role
   if (role && user.role !== role) {
+    navigate("/login")
     return <div>Unauthorized access</div>;
   }
 
