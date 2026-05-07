@@ -13,7 +13,7 @@ const ProtectedRoute = ({ user, setUser, role }) => {
           `${API_BASE_URL}/auth/verify`,
           { withCredentials: true }
         );
-
+        console.log(res.data)
         setUser(res.data.user);
       } catch {
         setUser(null);
