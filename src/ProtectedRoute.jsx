@@ -5,7 +5,10 @@ import { API_BASE_URL } from "./utils/apiConfig";
 
 const ProtectedRoute = ({ user, setUser, role }) => {
   const [loading, setLoading] = useState(true);
-  const location=useLocation()
+  const [authenticated, setAuthenticated] = useState(false);
+
+  const location = useLocation();
+
   useEffect(() => {
     const checkUser = async () => {
       try {
@@ -13,32 +16,51 @@ const ProtectedRoute = ({ user, setUser, role }) => {
           `${API_BASE_URL}/auth/verify`,
           { withCredentials: true }
         );
-        console.log(res.data)
-        setUser(res.data.user);
-      } catch {
+
+        console.log(res.data);
+
+        if (res.data.user) {
+          setUser(res.data.user);
+          setAuthenticated(true);
+        } else {
+          setAuthenticated(false);
+          setUser(null);
+        }
+
+      } catch (err) {
+        console.log(err);
+        setAuthenticated(false);
         setUser(null);
       } finally {
         setLoading(false);
       }
     };
 
-    if (!user) {
-      checkUser();
-    } else {
-      setLoading(false);
-    }
-  }, []); // ❗ run only once
+    checkUser();
+  }, []);
 
-  if (loading) return <div>Loading...</div>;
-
-  // ❌ Not logged in
-  if (!user) {
-    return <Navigate to="/login" state={{ from: location }} replace />;
+  if (loading) {
+    return <div>Loading...</div>;
   }
 
-  // ❌ Wrong role
-  if (role && user.role !== role) {
-  return <Navigate to="/login" state={{ from: location }} replace />;
+  if (!authenticated) {
+    return (
+      <Navigate
+        to="/login"
+        state={{ from: location }}
+        replace
+      />
+    );
+  }
+
+  if (role && user?.role !== role) {
+    return (
+      <Navigate
+        to="/login"
+        state={{ from: location }}
+        replace
+      />
+    );
   }
 
   return <Outlet />;
