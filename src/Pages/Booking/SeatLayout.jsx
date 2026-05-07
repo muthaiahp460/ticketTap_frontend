@@ -17,6 +17,7 @@ const SeatLayout = () => {
   const [selectedSeats, setSelectedseats] = useState([])
   const [selectedSeatIds, setselectedSeatIds] = useState([])
   const [price,setPrice]=useState(0)
+  const now = new Date()
 
   // fetch seats
   const fetchSeats = async () => {
