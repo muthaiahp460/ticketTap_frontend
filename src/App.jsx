@@ -14,7 +14,7 @@ import SuccessPage from "./Pages/Payment/SuccessPage";
 import OrdersPage from "./Pages/Orders/OrdersPage";
 import MovieDetails from "./Pages/Movies/MovieDetails";
 import Scanner from "./components/Scanner";
-import AuthCallback from "./components/Auth/callback";
+import AuthCallback from "./components/Auth/Callback";
 function App() { 
   const [user,setUser]=useState({})
   return (
