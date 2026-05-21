@@ -176,7 +176,7 @@ const Login = () => {
         <img src="https://developers.google.com/identity/images/g-logo.png" className='w-6 h-6'></img>
         <p>Continue with Google</p>
         </button>
-        <p>No account? <span className="text-blue-500 hover:cursor-pointer" onClick={navigate(`/register`)}>Create one</span></p>
+        <p>No account? <span className="text-blue-500 hover:cursor-pointer" onClick={()=>navigate(`/register`)}>Create one</span></p>
       </div>
     </div>
   )
