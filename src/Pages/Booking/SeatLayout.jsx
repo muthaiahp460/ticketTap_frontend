@@ -17,6 +17,7 @@ const SeatLayout = () => {
   const [selectedSeats, setSelectedseats] = useState([])
   const [selectedSeatIds, setselectedSeatIds] = useState([])
   const [price,setPrice]=useState(0)
+  const [locking, setLocking] = useState(false)
   const now = new Date()
 
   // fetch seats
@@ -47,6 +48,14 @@ const SeatLayout = () => {
 
   // lock seats
   const lockSeats = async () => {
+    if (selectedSeatIds.length === 0) {
+      toast.error("Please select seats first")
+      return
+    }
+
+    if (locking) return
+    
+    setLocking(true)
     try {
       const res = await axios.post(
         `${API_BASE_URL}/booking`,
@@ -54,17 +63,28 @@ const SeatLayout = () => {
         { withCredentials: true }
       )
 
-      const { bookingId, amount, expiresAt } = res.data
+      const { bookingId, amount, expiresAt } = res.data?.data || res.data
 
-      toast.success("Seats Locked")
+      if (!bookingId) {
+        toast.error("Invalid response from server")
+        setLocking(false)
+        return
+      }
+
+      toast.success("Seats Locked Successfully!")
 
       //  Navigate to payment page
-      navigate(`/payment/${bookingId}`, {
-        state: { amount, expiresAt }
-      })
+      setTimeout(() => {
+        navigate(`/payment/${bookingId}`, {
+          state: { amount, expiresAt }
+        })
+      }, 500)
 
-    } catch {
-      toast.error("Unable to lock seats")
+    } catch (error) {
+      const errorMsg = error.response?.data?.message || "Unable to lock seats. Please try again."
+      toast.error(errorMsg)
+      console.error("Seat locking error:", error)
+      setLocking(false)
     }
   }
 
@@ -87,6 +107,7 @@ const SeatLayout = () => {
       selectedSeats={selectedSeats}
       price={price}
       lockSeats={lockSeats}
+      locking={locking}
     />
 
   </div>

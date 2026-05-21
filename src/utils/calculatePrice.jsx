@@ -10,8 +10,9 @@ export const calculatePrice = async (id,selectedSeatIds) => {
           `${API_BASE_URL}/show/${id}/seats/price`,
           { seatIds: selectedSeatIds, showId: id }
         )
-        return result.data.price
-      } catch (_e) {
-        // Error handled silently
+        return result.data?.price || 0
+      } catch (error) {
+        console.error("Price calculation error:", error)
+        return 0
       }
 }
