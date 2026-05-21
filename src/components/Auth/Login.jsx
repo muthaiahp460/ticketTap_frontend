@@ -3,7 +3,6 @@ import React, { useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import { API_BASE_URL } from '../../utils/apiConfig'
-require("dotenv").config()
 
 import { supabase } from "../../utils/supabase"
 const googleLogin = async () => {
@@ -11,7 +10,7 @@ const googleLogin = async () => {
  await supabase.auth.signInWithOAuth({
       provider:"google",
       options:{
-          redirectTo:`${process.env.FRONTEND_URL}/auth/callback`
+          redirectTo:`${import.meta.env.FRONTEND_URL}/auth/callback`
       }
  })
 

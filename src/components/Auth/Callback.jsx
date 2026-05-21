@@ -2,7 +2,6 @@ import { useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router";
 import { supabase } from "../../utils/supabase";
-require("dotenv").config()
 function AuthCallback(){
 
 const navigate = useNavigate();
@@ -15,7 +14,7 @@ if(!session)
     return;
 
 await axios.post(
-`${process.env.API_BASE_URL}/auth/google`,
+`${import.meta.env.API_BASE_URL}/auth/google`,
 {token:session.access_token},
 { withCredentials:true}
 );
