@@ -39,7 +39,7 @@ const ScannerPage = () => {
               // 🔥 VERIFY API
               try {
                 const res = await axios.post(
-                  `${import.meta.env.VITE_API_URL}/booking/verify`,
+                  `${import.meta.env.VITE_API_BASE_URL}/booking/verify`,
                   { bookingId: decodedText },
                   { withCredentials: true }
                 );

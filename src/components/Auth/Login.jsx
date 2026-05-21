@@ -10,7 +10,7 @@ const googleLogin = async () => {
  await supabase.auth.signInWithOAuth({
       provider:"google",
       options:{
-          redirectTo:`${import.meta.env.FRONTEND_URL}/auth/callback`
+          redirectTo:`${import.meta.env.VITE_FRONTEND_URL}/auth/callback`
       }
  })
 
