@@ -14,6 +14,7 @@ import SuccessPage from "./Pages/Payment/SuccessPage";
 import OrdersPage from "./Pages/Orders/OrdersPage";
 import MovieDetails from "./Pages/Movies/MovieDetails";
 import Scanner from "./components/Scanner";
+import AuthCallback from "./components/Auth/callback";
 function App() { 
   const [user,setUser]=useState({})
   return (
@@ -23,6 +24,7 @@ function App() {
         <Route path="/movie/:id" element={<MovieDetails/>}></Route>
         <Route path="/register" element={<Register/>}></Route>
         <Route path="/login" element={<Login/>}></Route>
+        <Route path="/auth/callback" element={<AuthCallback/>}></Route>
         
         <Route element={<ProtectedRoute user={user} setUser={setUser} role={"user"}/>}>
           <Route path="/show/:id/seatLayout" element={<SeatLayout/>}></Route>

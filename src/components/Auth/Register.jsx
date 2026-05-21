@@ -83,7 +83,7 @@ const Register = () => {
 
   useEffect(() => {
     if (click) validateData()
-  }, [name, email, password, phoneNo, Secret, role, click, validateData])
+  }, [name, email, password, phoneNo, Secret, role, click])
 
   return (
     <div className="min-h-screen flex items-center justify-center">

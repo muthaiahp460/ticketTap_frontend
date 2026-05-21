@@ -4,6 +4,20 @@ import { useLocation, useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import { API_BASE_URL } from '../../utils/apiConfig'
 
+
+import { supabase } from "../../utils/supabase"
+const googleLogin = async () => {
+
+ await supabase.auth.signInWithOAuth({
+      provider:"google",
+      options:{
+          redirectTo:"http://localhost:5173/auth/callback"
+      }
+ })
+
+}
+
+
 const Login = () => {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
@@ -158,7 +172,11 @@ const Login = () => {
         >
           Login
         </button>
-
+        <button onClick={googleLogin} className='flex justify-between px-42 border-2 border-gray-200 p-2 rounded-xl'>
+        <img src="https://developers.google.com/identity/images/g-logo.png" className='w-6 h-6'></img>
+        <p>Continue with Google</p>
+        </button>
+        <p>No account? <span className="text-blue-500 hover:cursor-pointer" onClick={navigate(`/register`)}>Create one</span></p>
       </div>
     </div>
   )
